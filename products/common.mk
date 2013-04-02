@@ -9,7 +9,6 @@ PRODUCT_DEVICE := generic
 # Build packages included in manifest
 PRODUCT_PACKAGES += \
     AppWidgetPicker \
-    busybox \
     DSPManager \
     Email
 
@@ -107,6 +106,15 @@ PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/xbin/vanirnice:system/xbin/vanirnice \
     vendor/vanir/proprietary/common/xbin/vanirinteractivegovernorgovernor:system/xbin/vanirinteractivegovernorgovernor
 
+# crutches for master
+PRODUCT_COPY_FILES += \
+    vendor/vanir/proprietary/common/xbin/bash:system/xbin/bash \
+    vendor/vanir/proprietary/common/xbin/busybox:system/xbin/busybox \
+    vendor/vanir/proprietary/common/lib/libncurses.so:system/lib/libncurses.so \
+    vendor/vanir/proprietary/common/etc/bash/bash_logout:system/etc/bash/bash_logout \
+    vendor/vanir/proprietary/common/etc/bash/bashrc:system/etc/bash/bashrc
+
+
 #Imoseyon's zram script
 PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/xbin/zram:system/xbin/zram
@@ -137,6 +145,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/etc/sysctl.conf:system/etc/sysctl.conf \
     vendor/vanir/proprietary/common/etc/init.d/00firsties:system/etc/init.d/00firsties \
+    vendor/vanir/proprietary/common/etc/init.d/01self-destruct:system/etc/init.d/01self-destruct \
     vendor/vanir/proprietary/common/etc/init.d/09cron:system/etc/init.d/09cron \
     vendor/vanir/proprietary/common/etc/init.d/98SONIC_SHOCK:system/etc/init.d/98SONIC_SHOCK \
     vendor/vanir/proprietary/common/etc/init.d/99vanir:system/etc/init.d/99vanir \
@@ -168,32 +177,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Basic \
     SoundRecorder
-
-# Extra tools in CM
-PRODUCT_PACKAGES += \
-    openvpn \
-    e2fsck \
-    mke2fs \
-    tune2fs \
-    bash \
-    vim \
-    nano \
-    htop \
-    powertop
-
-# Openssh
-PRODUCT_PACKAGES += \
-    scp \
-    sftp \
-    ssh \
-    sshd \
-    sshd_config \
-    ssh-keygen \
-    start-ssh
-
-# rsync
-PRODUCT_PACKAGES += \
-    rsync
 
 # T-Mobile theme engine
 PRODUCT_PACKAGES += \
