@@ -156,6 +156,13 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/vanir/overlay/core_dictionaries
 #SUPERUSER_PACKAGE := com.vanir.superuser
 SUPERUSER_EMBEDDED := true
 
+# crutches for master
+PRODUCT_COPY_FILES += \
+    vendor/vanir/proprietary/common/xbin/bash:system/xbin/bash \
+    vendor/vanir/proprietary/common/etc/bash/bash_logout:system/etc/bash/bash_logout \
+    vendor/vanir/proprietary/common/etc/bash/bashrc:system/etc/bash/bashrc 
+
+
 # Required CM packages
 PRODUCT_PACKAGES += \
     Camera \
@@ -175,7 +182,6 @@ PRODUCT_PACKAGES += \
     e2fsck \
     mke2fs \
     tune2fs \
-    bash \
     vim \
     nano \
     htop \
