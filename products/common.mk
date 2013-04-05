@@ -153,8 +153,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGE_OVERLAYS += vendor/vanir/overlay/core_dictionaries
 
 #Define thirdparty for Koush's SU
-#SUPERUSER_PACKAGE := com.vanir.superuser
-SUPERUSER_EMBEDDED := true
+SUPERUSER_PACKAGE := com.vanir.superuser
 
 # crutches for master
 PRODUCT_COPY_FILES += \
