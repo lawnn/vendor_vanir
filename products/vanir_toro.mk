@@ -9,14 +9,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.fast.dormancy.rule=0 \
     ro.goo.rom=vanir-TORO
 
+# CDMA APN
+PRODUCT_COPY_FILES += \
+    vendor/vanir/proprietary/common/etc/apns-conf-cdma.xml:system/etc/apns-conf.xml
+
 $(call inherit-product, vendor/vanir/products/vanir_tuna.mk)
 
 # Inherit AOSP device configuration for toro.
 $(call inherit-product, device/samsung/toro/full_toro.mk)
-
-# CDMA APN
-PRODUCT_COPY_FILES += \
-    vendor/vanir/prebuilt/common/etc/apns-conf-cdma.xml:system/etc/apns-conf.xml
 
 #... and then make the AOSP device configuration for toro get on its knees and sing the national anthem into our "microphones"
 PRODUCT_LOCALES := en_US
