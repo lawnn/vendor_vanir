@@ -162,6 +162,13 @@ PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/etc/bash/bash_logout:system/etc/bash/bash_logout \
     vendor/vanir/proprietary/common/etc/bash/bashrc:system/etc/bash/bashrc 
 
+# Temp HACK: Use a prebuilt libjavacore due to how tricky conscrypt's JNI_OnLoad handling is
++RODUCT_COPY_FILES += \
+    vendor/vanir/prebuilt/common/obj/lib/libjavacore.so:obj/lib/libjavacore.so \
+    vendor/vanir/prebuilt/common/system/lib/libjavacore.so:system/lib/libjavacore.so \
+    vendor/vanir/prebuilt/common/obj/SHARED_LIBRARIES/libjavacore_intermediates/LINKED/libjavacore.so:obj/SHARED_LIBRARIES/libjavacore_intermediates/LINKED/libjavacore.so \
+    vendor/vanir/prebuilt/common/symbols/system/lib/libjavacore.so:symbols/system/lib/libjavacore.so 
+
 
 # Required CM packages
 PRODUCT_PACKAGES += \
