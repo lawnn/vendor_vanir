@@ -169,6 +169,11 @@ PRODUCT_COPY_FILES += \
     vendor/vanir/prebuilt/common/obj/SHARED_LIBRARIES/libjavacore_intermediates/LINKED/libjavacore.so:obj/SHARED_LIBRARIES/libjavacore_intermediates/LINKED/libjavacore.so \
     vendor/vanir/prebuilt/common/symbols/system/lib/libjavacore.so:symbols/system/lib/libjavacore.so 
 
+# File Contexts
+ifeq ($(HAVE_SELINUX),)
+PRODUCT_COPY_FILES += \
+    vendor/cfx/prebuilt/common/root/file_contexts:root/file_contexts
+endif 
 
 # Required CM packages
 PRODUCT_PACKAGES += \
