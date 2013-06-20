@@ -172,7 +172,7 @@ PRODUCT_COPY_FILES += \
 # File Contexts
 ifeq ($(HAVE_SELINUX),)
 PRODUCT_COPY_FILES += \
-    vendor/cfx/prebuilt/common/root/file_contexts:root/file_contexts
+    vendor/vanir/prebuilt/common/root/file_contexts:root/file_contexts
 endif 
 
 # Required CM packages
