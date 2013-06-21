@@ -8,12 +8,11 @@ PRODUCT_DEVICE := generic
 
 # Build packages included in manifest
 PRODUCT_PACKAGES += \
-    AppWidgetPicker \
     busybox \
     DSPManager \
     Email
 
-Vanir_Version=4.2.2.1
+Vanir_Version=4.2.2.2
 
 Vanir_BUILD=$(Vanir_Version)
 
@@ -40,28 +39,21 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Build.Prop Tweaks
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.checkjni=false \
-    dalvik.vm.dexopt-flags=v=n,o=v,u=n,m=y \
+    dalvik.vm.dexopt-flags=m=y \
     dalvik.vm.execution-mode=int:jit \
-    dalvik.vm.heapgrowthlimit=128m \
-    dalvik.vm.heapsize=384m \
-    dalvik.vm.heapstartsize=8m \
-    dalvik.vm.lockprof.threshold=850 \
     dalvik.vm.stack-trace-file=/data/anr/traces.txt \
     dalvik.vm.verify-bytecode=false \
     mot.proximity.delay=20 \
-    movfilter=40 \
-    per_sec=300 \
     net.bt.name=Android \
+    ro.ril.disable.power.collapse=0 \
+    ro.vold.umsdirtyratio=20 \
     persist.sys.purgeable_assets=1 \
     persist.sys.use_dithering=0 \
-    pm.sleep_mode=1 \
+    pm.sleep_mode=0 \
     ro.config.nocheckin=1 \
     ro.config.hwfeature_wakeupkey=0 \
     ro.ext4fs=1 \
     ro.goo.developerid=vanir \
-    ro.HOME_APP_ADJ=1 \
-    ro.HOME_APP_MEM=8192 \
-    ro.FOREGROUND_APP_MEM=8192 \
     ro.kernel.android.checkjni=0 \
     ro.kernel.checkjni=0 \
     ro.lge.proximity.delay=20 \
@@ -71,28 +63,31 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.media.dec.jpeg.memcap=8000000 \
     ro.media.enc.jpeg.quality=100 \
     ro.min.fling_velocity=10000 \
-    ro.mot.eri.losalert.delay=600 \
     ro.rommanager.developerid=vanir \
-    ro.VISIBLE_APP_MEM=8192 \
     video.accelerate.hw=1 \
     wifi.supplicant_scan_interval=300 \
-    windowsmgr.max_events_per_sec=280 \
     persist.sys.root_access=3
 
-### Possible culprits in random reboots I THINK?... difference is negligible without these
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.composition.type=gpu
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.performance.tuning=1
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.hw=1
+# Questionable stuff -- just trusting stock values on these
+#    movfilter=40 \
+#    per_sec=300 \
+#    windowsmgr.max_events_per_sec=280 \
+#    ro.mot.eri.losalert.delay=600 \
+#    debug.composition.type=gpu \
+#    debug.performance.tuning=1 \
+#    debug.sf.hw=1
+#    ro.VISIBLE_APP_MEM=8192 \
+#    ro.HOME_APP_ADJ=1 \
+#    ro.HOME_APP_MEM=8192 \
+#    ro.FOREGROUND_APP_MEM=8192 \
+#    dalvik.vm.lockprof.threshold=850 \
 
 ### These will prevent any FC popups from showing... ever. (lol)
 #    profiler.force_disable_err_rpt=1 \
 #    profiler.force_disable_ulog=1 \
 
 # Version information used on all builds
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_DISPLAY_ID=JDQ39 BUILD_ID=JDQ39 BUILD_VERSION_TAGS=release-keys USER=android-build BUILD_EST_DATE=$(shell date +"%s")
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_DISPLAY_ID=JDQ39E BUILD_ID=JDQ39E BUILD_VERSION_TAGS=release-keys USER=android-build BUILD_EST_DATE=$(shell date +"%s")
 
 # Blobs common to all devices
 PRODUCT_COPY_FILES += \
@@ -127,16 +122,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/init.vanir.rc:root/init.vanir.rc \
     vendor/vanir/proprietary/common/bin/sysinit:system/bin/sysinit \
-    vendor/vanir/proprietary/common/bin/cronlogger:system/bin/cronlogger
-
-# Default values used by 99vanir. copied to /sdcard on first run, and presently it lives there forever... todo: make a runonce script that adds new default values to the copy on the sdcard as we add them or something
-PRODUCT_COPY_FILES += \
-    vendor/vanir/proprietary/common/etc/vanir.cfg:system/etc/vanir.cfg
+    vendor/vanir/proprietary/common/bin/cronlogger:system/bin/cronlogger \
+    vendor/vanir/proprietary/common/xbin/CB_RunHaveged:system/xbin/CB_RunHaveged \
+    vendor/vanir/proprietary/common/xbin/haveged:system/xbin/haveged \
+    vendor/vanir/proprietary/common/xbin/vanirentropy:system/xbin/vanirentropy
+ 
 
 # init.d Tweaks
 PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/etc/sysctl.conf:system/etc/sysctl.conf \
     vendor/vanir/proprietary/common/etc/init.d/00firsties:system/etc/init.d/00firsties \
+    vendor/vanir/proprietary/common/etc/init.d/06ENTROPY:system/etc/init.d/06ENTROPY \
     vendor/vanir/proprietary/common/etc/init.d/09cron:system/etc/init.d/09cron \
     vendor/vanir/proprietary/common/etc/init.d/98SONIC_SHOCK:system/etc/init.d/98SONIC_SHOCK \
     vendor/vanir/proprietary/common/etc/init.d/99vanir:system/etc/init.d/99vanir \
@@ -144,12 +140,6 @@ PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/etc/cron/cron.minutely/00nicetweaks:/system/etc/cron/cron.minutely/00nicetweaks \
     vendor/vanir/proprietary/common/etc/cron/cron.daily/00sqlitespeed:/system/etc/cron/cron.daily/00sqlitespeed
 
-#RNGD MODS
-PRODUCT_COPY_FILES += \
-    vendor/vanir/proprietary/common/xbin/vanirentropy:system/xbin/vanirentropy \
-    vendor/vanir/proprietary/common/xbin/rngd:system/xbin/rngd
-
-#LatinIME core files
 PRODUCT_PACKAGE_OVERLAYS += vendor/vanir/overlay/core_dictionaries
 
 #Define thirdparty for Koush's SU

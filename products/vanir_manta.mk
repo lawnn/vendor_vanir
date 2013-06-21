@@ -11,6 +11,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # Inherit common product files.
 $(call inherit-product, vendor/vanir/products/common_tabs.mk)
+$(call inherit-product, vendor/vanir/products/non-beats.mk)
 
 PRODUCT_PACKAGES += \
     LiveWallpapersPicker
@@ -57,13 +58,17 @@ $(call inherit-product, device/samsung/manta/full_manta.mk)
 # More Language support for International LatinIME
 PRODUCT_PACKAGE_OVERLAYS += vendor/vanir/overlay/dictionaries
 
+# Default values used by 99vanir. copied to /sdcard on first run, and presently it lives there forever... todo: make a runonce script that adds new default values to the copy on the sdcard as we add them or something
+PRODUCT_COPY_FILES += \
+    vendor/vanir/proprietary/common/etc/vanir.cfg:system/etc/vanir.cfg
+
 PRODUCT_NAME := vanir_manta
 PRODUCT_DEVICE := manta
 PRODUCT_BRAND := Google
 PRODUCT_MODEL := Nexus 10
 PRODUCT_MANUFACTURER := Samsung
 
-PRODUCT_BUILD_PROP_OVERRIDES := PRODUCT_NAME=mantaray BUILD_FINGERPRINT=google/mantaray/manta:4.2.2/JDQ39/573038:user/release-keys PRIVATE_BUILD_DESC="mantaray-user 4.2.2 JDQ39 573038 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES := PRODUCT_NAME=mantaray BUILD_FINGERPRINT=google/mantaray/manta:4.2.2/JDQ39E/573038:user/release-keys PRIVATE_BUILD_DESC="mantaray-user 4.2.2 JDQ39E 573038 release-keys"
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.goo.rom=Vanir-MANTA

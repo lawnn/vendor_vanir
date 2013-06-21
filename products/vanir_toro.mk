@@ -3,15 +3,17 @@ DHO_VENDOR := vanir
 
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true \
-    ro.config.vc_call_vol_steps=7 \
-    ring.delay=0 \
-    ro.telephony.call_ring.delay=50 \
-    ro.ril.fast.dormancy.rule=0 \
     ro.goo.rom=vanir-TORO
 
 # CDMA APN
 PRODUCT_COPY_FILES += \
     vendor/vanir/proprietary/common/etc/apns-conf-cdma.xml:system/etc/apns-conf.xml
+
+# trusting defaults
+#    ro.config.vc_call_vol_steps=7 \
+#    ring.delay=0 \
+#    ro.telephony.call_ring.delay=0 \
+#    ro.ril.fast.dormancy.rule=0 \
 
 $(call inherit-product, vendor/vanir/products/vanir_tuna.mk)
 
@@ -28,4 +30,4 @@ PRODUCT_DEVICE := toro
 PRODUCT_MODEL := Galaxy Nexus
 PRODUCT_MANUFACTURER := samsung
 
-PRODUCT_BUILD_PROP_OVERRIDES := PRODUCT_NAME=mysid BUILD_FINGERPRINT=google/mysid/toro:4.2.2/JDQ39/424425:user/release-keys PRIVATE_BUILD_DESC="mysid-user 4.2.2 JDQ39 424425 release-keys" BUILD_NUMBER=235179
+PRODUCT_BUILD_PROP_OVERRIDES := PRODUCT_NAME=mysid BUILD_FINGERPRINT=google/mysid/toro:4.2.2/JDQ39E/424425:user/release-keys PRIVATE_BUILD_DESC="mysid-user 4.2.2 JDQ39E 424425 release-keys" BUILD_NUMBER=235179

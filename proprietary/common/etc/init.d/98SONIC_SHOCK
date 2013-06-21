@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # Consolidated T5UN4MI Script
-# PrimeDirective, Sonicxml, DHO, Nuclearmistake
+# PrimeDirective, Sonicxml, DHO, Nuclearmistake, aosp
 # With inspiration from DroidTh3ory
 
 sync
@@ -15,50 +15,30 @@ sysctl -p /system/etc/sysctl.conf
 # Set SD Card Cache
 #
 if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ]; then
-  echo 2048 > /sys/devices/virtual/bdi/179:0/read_ahead_kb
+  echo 256 > /sys/devices/virtual/bdi/179:0/read_ahead_kb
 fi
 
-#RQ_Affinity
-for b in /sys/block/*; do echo 1 > $b/queue/rq_affinity; done
-
 #
+# General Queue Tweaks
 #
-# Sysctl & VM Tweaks
-#
-busybox sysctl -w vm.page-cluster=3
-busybox sysctl -w vm.drop_caches=3
-busybox sysctl -w vm.dirty_expire_centisecs=750
-busybox sysctl -w vm.dirty_writeback_centisecs=1500
-busybox sysctl -w kernel.random.write_wakeup_threshold=256
-busybox sysctl -w kernel.random.read_wakeup_threshold=128
-busybox sysctl -w fs.file-max=524288
-busybox sysctl -w fs.inotify.max_queued_events=32000
-busybox sysctl -w kernel.panic=0
-busybox sysctl -w kernel.panic_on_oops=1
-busybox sysctl -w kernel.msgmni=2048
-busybox sysctl -w kernel.msgmax=64000
-busybox sysctl -w kernel.shmmax=268435500
-busybox sysctl -w kernel.sem=500,512000,64,2048
-busybox sysctl -w kernel.threads-max=525810
-echo "1" > /proc/sys/vm/laptop_mode
-
+for i in /sys/block/*/queue; do
+  echo 512 > $i/nr_requests;
+  echo 256 > $i/read_ahead_kb;
+  echo 2 > $i/rq_affinity;
+  echo 0 > $i/nomerges;
+  echo 0 > $i/add_random;
+  echo 0 > $i/rotational;
+done;
 
 for i in `find /sys/device/platform -name iostats`; do echo "0" > $i; done
 
 #
-# START wrapper script that brute-forces rngd until it stays alive
-#
-####
-rngd
-
-#
 # File System Tweaks & Cleanup
 #
-for m in "/" "/dev" "/proc" "/sys" "/system" "/data" "/data/data" "/cache" "/acct" "/dev/pts" "/dev/cpuctl" "/mnt/asec" "/mnt/obb"; do
-  busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nodev $m
+busybox mount -o remount,noatime,noauto_da_alloc,nodiratime,barrier=0,data=writeback /system
+for m in "/data" "/cache"; do
+  busybox mount -o remount,commit=19,barrier=0,discard,nomblk_io_submit,noauto_da_alloc,errors=continue,noatime,nodiratime,nosuid,nodev,data=writeback $m
 done
-
-echo "10" > /proc/sys/fs/lease-break-time
 
 sync
 sysro
