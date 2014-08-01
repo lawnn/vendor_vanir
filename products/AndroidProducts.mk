@@ -9,11 +9,12 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/vanir_d800.mk \
     $(LOCAL_DIR)/vanir_d801.mk \
     $(LOCAL_DIR)/vanir_d802.mk \
+    $(LOCAL_DIR)/vanir_l01f.mk \
     $(LOCAL_DIR)/vanir_d803.mk \
     $(LOCAL_DIR)/vanir_dlx.mk \
     $(LOCAL_DIR)/vanir_e980.mk \
     $(LOCAL_DIR)/vanir_evita.mk \
-   $(LOCAL_DIR)/vanir_falcon.mk \
+    $(LOCAL_DIR)/vanir_falcon.mk \
     $(LOCAL_DIR)/vanir_find5.mk \
     $(LOCAL_DIR)/vanir_flo.mk \
     $(LOCAL_DIR)/vanir_geeb.mk \

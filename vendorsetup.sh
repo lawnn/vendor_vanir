@@ -39,6 +39,7 @@ iyokan
 jewel
 jflte
 klte
+l01f
 ls980
 m4
 m7att
