@@ -14,7 +14,7 @@ $(call inherit-product, vendor/vanir/products/gsm.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := l01f
-PRODUCT_NAME := full_l01f
+PRODUCT_NAME := vanir_l01f
 PRODUCT_BRAND := DOCOMO
 PRODUCT_MODEL := L01F
 PRODUCT_MANUFACTURER := lge
